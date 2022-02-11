@@ -26,9 +26,14 @@ Double[][] outPut = new Double[][]{{1.0},{0.0},{0.0},{0.0}}; //the labels
 TrainingData data = new TrainingData(input , outPut);
 Double[][] Output = myNetwork.feedForward(data); //predict results
 
-for(int i = 0; i<Output.length;i++) {
-    for(int j = 0; j<Output[0].length;j++)
-        System.out.print(Output[i][j] + "  ");
-    System.out.println();
-}
 ```
+## Saving trained Model
+```Java
+myNetwork.saveModel("model.panic"); //this method uses half space in compare to second method but it's very slow
+myNetwork.QsaveModel("model2.panic"); //this method is fast but uses more space to save
+```
+
+### In future
+-Back propagation (training part)
+-More Customizeable networks
+-CNN and RNN models

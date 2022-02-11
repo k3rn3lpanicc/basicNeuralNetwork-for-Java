@@ -1,10 +1,10 @@
 package NN;
 
 public class TrainingData {
-    Double[][] InputData;
-    Double[][] YLabels;
+    Matrix InputData;
+    Matrix YLabels;
 
-    public TrainingData(Double[][] inputData, Double[][] YLabels) {
+    public TrainingData(Matrix inputData, Matrix YLabels) {
         InputData = inputData;
         this.YLabels = YLabels;
     }

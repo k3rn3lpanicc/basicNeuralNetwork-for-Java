@@ -21,7 +21,7 @@ enum ActivationTypes{
 }
 public class NNetwork implements Serializable {
     List<Layer> Layers = new ArrayList<>();
-    List<Double[][]> Weights = new ArrayList<>();
+    List<Matrix> Weights = new ArrayList<>();
     public static String ActivationTypeToString(ActivationTypes type) throws Exception {
         switch (type){
             case Linear:
@@ -36,45 +36,19 @@ public class NNetwork implements Serializable {
                 throw new Exception("Activation not found!");
         }
     }
-    Double[] SoftmaxApplied(Double[] inp){
-        Double[] result = new Double[inp.length];
-        Double maximum = 0.0;
-        for(int i = 0; i < inp.length; i++)
-            if(maximum<inp[i])
-                maximum = inp[i];
-        for(int i = 0; i < inp.length; i++)
-            inp[i]-=maximum;
-        Double div = 0.0;
-        for(int i = 0; i<inp.length;i++)
-            div+= Math.exp(inp[i]);
-        for(int i = 0 ;i<inp.length;i++)
-            result[i] = Math.exp(inp[i])/div;
-        return result;
-    }
-    Double[][] feedForward(TrainingData data) throws Exception {
-        Double[][] res = new Double[data.InputData.length][Layers.get(Layers.size() - 1).Neurons.size()];
+
+    Matrix feedForward(TrainingData data) throws Exception {
         int cnt = 0;
-        for(int i2 = 0; i2 < data.InputData.length;i2++) {
-            Double[] result = new Double[Layers.get(Layers.size() - 1).Neurons.size()];
-            result = data.InputData[i2];
-            Double[] tempres = new Double[result.length];
-            for (int i = 1; i < Layers.size(); i++) {
-                if(Layers.get(i).Activation==ActivationTypes.Softmax){
-                    tempres = new Double[Layers.get(i).Neurons.size()];
-                    tempres = Layers.get(i).calculate(result, Weights.get(i - 1));
-                    result = tempres;
-                    result = SoftmaxApplied(result);
-                }
-                else {
-                    tempres = new Double[Layers.get(i).Neurons.size()];
-                    tempres = Layers.get(i).calculate(result, Weights.get(i - 1));
-                    result = tempres;
-                }
-            }
-            res[cnt] = result;
-            cnt++;
+        Matrix result = new Matrix();
+        result = data.InputData;
+        Matrix tempres = new Matrix();
+        for (int i = 1; i < Layers.size(); i++) {
+            tempres = new Matrix(); //new Double[Layers.get(i).Neurons.size()]
+            tempres = Layers.get(i).calculate(result, Weights.get(i - 1));
+            result = tempres;
+            //result.printMatrix();
         }
-        return res;
+        return result;
     }
     Double[][] createWeights(int thisLayer , int thatLayer){
         Double[][] weights = new Double[thisLayer][thatLayer];
@@ -85,7 +59,7 @@ public class NNetwork implements Serializable {
         return weights;
     }
     void addWeights(Double[][] weights){
-        Weights.add(weights);
+        Weights.add(new Matrix(weights));
     }
     public void addLayer(Layer newLayer){
         Layers.add(newLayer);
@@ -111,8 +85,8 @@ public class NNetwork implements Serializable {
     }
     public List<Layer> getLayers() { return Layers; }
     public void setLayers(List<Layer> layers) { Layers = layers; }
-    public List<Double[][]> getWeights() { return Weights; }
-    public void setWeights(List<Double[][]> weights) {
+    public List<Matrix> getWeights() { return Weights; }
+    public void setWeights(List<Matrix> weights) {
         Weights = weights;
     }
     void QsaveModel(String fileName){
@@ -172,12 +146,12 @@ public class NNetwork implements Serializable {
             return;
         System.out.println("Weights : ");
         int cntr = 0;
-        for(Double[][] weight : Weights){
+        for(Matrix weight : Weights){
             System.out.println("=========Layer "+cntr+"-"+(cntr+1)+" : ");
             cntr++;
-            for(int i = 0;i<weight.length;i++) {
-                for (int j = 0; j < weight[i].length; j++) {
-                    System.out.print(weight[i][j] + " ");
+            for(int i = 0;i<weight.getData().length;i++) {
+                for (int j = 0; j < weight.getData()[i].length; j++) {
+                    System.out.print(weight.getData()[i][j] + " ");
                 }
                 System.out.println();
             }

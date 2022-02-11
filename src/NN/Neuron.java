@@ -33,14 +33,14 @@ public class Neuron implements Serializable {
 
         }
     }
-    public double Calculate(Double[] previousLayerValues , Double[][] previousLayerWeights, int ii) throws Exception{
-        if(previousLayerValues.length!=previousLayerWeights.length){
+    public double Calculate(Matrix previousLayerValues , Matrix previousLayerWeights, int ii) throws Exception{
+        if(previousLayerValues.getData().length!=previousLayerWeights.getData().length){
             throw new Exception("The Input Weights and values are not same size!");
         }
         else{
             double calculatedValue = 0;
-            for(int i = 0; i<previousLayerValues.length; i++){
-                calculatedValue+= ((previousLayerValues[i])*(previousLayerWeights[i][ii]));
+            for(int i = 0; i<previousLayerValues.getData().length; i++){
+                //calculatedValue+= ((previousLayerValues[i])*(previousLayerWeights[i][ii]));
             }
             return addActivation(calculatedValue , Activation);
 

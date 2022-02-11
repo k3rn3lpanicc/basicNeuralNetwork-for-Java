@@ -1,5 +1,5 @@
-# basicNeuralNetwork-for-Java
-Writing a Neural Network (Dense Network) from Scratch in Java
+# BasicNeuralNetwork for Java
+Very Simple and dense Neural Network from Scratch with Java
 
 
 ## Creating Network/Loading Network from file

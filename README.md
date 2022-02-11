@@ -25,4 +25,10 @@ Double[][] input = new Double[][]{{2.0 , 1.0},{3.0, 2.0} , {4.0,1.0} , {2.0,0.0}
 Double[][] outPut = new Double[][]{{1.0},{0.0},{0.0},{0.0}}; //the labels
 TrainingData data = new TrainingData(input , outPut);
 Double[][] Output = myNetwork.feedForward(data); //predict results
+
+for(int i = 0; i<Output.length;i++) {
+    for(int j = 0; j<Output[0].length;j++)
+        System.out.print(Output[i][j] + "  ");
+    System.out.println();
+}
 ```

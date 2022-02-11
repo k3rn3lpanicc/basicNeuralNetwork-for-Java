@@ -33,7 +33,7 @@ myNetwork.saveModel("model.panic"); //this method uses half space in compare to 
 myNetwork.QsaveModel("model2.panic"); //this method is fast but uses more space to save
 ```
 
-## In future
+# In future
 -Back propagation (training part)
 
 -More Customizeable networks

@@ -15,7 +15,7 @@ myNetwork.addLayer(new Layer(26 , ActivationTypes.Softmax));
 myNetwork.QloadModel("model2.panic"); //QloadModel is faster but needs more space
 myNetwork.loadModel("model.panic"); //loadModel is slower(a lot!) but needs half space
 ```
-## Getting Network propertiese printed on console
+## Getting Network properties printed on console
 ```Java
 myNetwork.getSummary(false);
 ```

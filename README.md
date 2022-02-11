@@ -40,3 +40,5 @@ myNetwork.QsaveModel("model2.panic"); //this method is fast but uses more space 
 
 -CNN and RNN models
 
+## Libraries & Tools used in this project
+- [Google Gson](https://github.com/google/gson) library

@@ -3,17 +3,27 @@ package NN;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Layer implements Serializable {
     List<Neuron> Neurons = new ArrayList<>();
-    Double biasWeight;
     ActivationTypes Activation;
+    //Double Bias;
+    Layer(int neuronNo , Double Bias , ActivationTypes Activation){
+        for(int i = 0; i < neuronNo; i++){
+            Neuron neuron = new Neuron(Activation);
+            Neurons.add(neuron);
+        }
+        this.Activation = Activation;
+        //this.Bias = Bias;
+    }
     Layer(int neuronNo , ActivationTypes Activation){
         for(int i = 0; i < neuronNo; i++){
             Neuron neuron = new Neuron(Activation);
             Neurons.add(neuron);
         }
         this.Activation = Activation;
+        //this.Bias = new Random().nextGaussian();
     }
     double calculateSigmoid(double Value){
         return 1/(1+Math.exp(Value));
@@ -72,12 +82,15 @@ public class Layer implements Serializable {
                     break;
             }
     }
-    Matrix calculate(Matrix Input , Matrix Weights) throws Exception {
-        Matrix result = Input;
+    /*
+    Matrix calculate(Matrix Input , Matrix Weights,Double previousBias) throws Exception {
+        Matrix result = new Matrix(new Double[Input.getFirst()][Input.getSecond()]);
+        result.setData(Input.getData().clone());
         result.Multiply(Weights);
-        //result.printMatrix();
+        result.Plus(previousBias);
         applyActivation(result,Activation);
-        //result.printMatrix();
         return result;
     }
+    */
+
 }

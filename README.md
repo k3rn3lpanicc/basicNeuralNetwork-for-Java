@@ -23,10 +23,16 @@ myNetwork.getSummary(false); //false means we don't want to print the weights
 ```Java
 Double[][] input = new Double[][]{{2.0 , 1.0},{3.0, 2.0} , {4.0,1.0} , {2.0,0.0}};
 Double[][] outPut = new Double[][]{{1.0},{0.0},{0.0},{0.0}}; //the labels
-TrainingData data = new TrainingData(input , outPut);
+TrainingData data = new TrainingData(input.Transpose() , outPut.Transpose());
 Double[][] Output = myNetwork.feedForward(data); //predict results
 
 ```
+## Train
+```Java
+int epochs = 1000;
+myNetwork.Fit(data , epochs,"model.panic");
+```
+
 ## Saving trained Model
 ```Java
 myNetwork.saveModel("model.panic"); //this method uses half space in compare to second method but it's very slow
@@ -34,8 +40,6 @@ myNetwork.QsaveModel("model2.panic"); //this method is fast but uses more space 
 ```
 
 # In future
--Back propagation (training part)
-
 -More Customizeable networks
 
 -CNN and RNN models
